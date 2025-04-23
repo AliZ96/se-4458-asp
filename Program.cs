@@ -47,16 +47,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Swagger vs
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Swagger'? HER ORTAMDA aktif et
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-// ?? JWT middleware
 app.UseAuthentication();
 app.UseAuthorization();
 
