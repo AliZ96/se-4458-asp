@@ -47,6 +47,16 @@ This project is a RESTful Web API developed with ASP.NET Core for the SE4458 Sof
 2. Use the login endpoint to obtain a JWT token
 3. Click the Authorize button and paste the token
 4. Add a flight, buy a ticket, check-in, and list passengers
+## Example flight
+{
+  "fromAirport": "AYT",
+  "toAirport": "ADB",
+  "dateFrom": "2025-06-10T09:00:00",
+  "dateTo": "2025-06-10T10:30:00",
+  "duration": 90,
+  "capacity": 5
+}
+
 
 ## Developer Info
 
