@@ -47,9 +47,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Swagger'? HER ORTAMDA aktif et
+// Swagger HER ORTAMDA çal??s?n (Render dahil)
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+    c.RoutePrefix = "swagger"; // UI adresi: /swagger
+});
 
 app.UseHttpsRedirection();
 
