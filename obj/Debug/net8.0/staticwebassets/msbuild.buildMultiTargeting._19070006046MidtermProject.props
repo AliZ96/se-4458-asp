@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\_19070006046MidtermProject.props" />
+</Project>

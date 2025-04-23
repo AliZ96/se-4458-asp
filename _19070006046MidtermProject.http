@@ -1,0 +1,6 @@
+@_19070006046MidtermProject_HostAddress = http://localhost:5194
+
+GET {{_19070006046MidtermProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
