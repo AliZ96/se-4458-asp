@@ -27,7 +27,7 @@ namespace _19070006046MidtermProject.Controllers
             return Ok(new { status = "success", flightId = flight.Id });
         }
 
-        // 2️⃣ Uçuş Sorgulama (paging ile)
+        // 2️⃣ Uçuş Sorgulama
         [HttpGet]
         public async Task<IActionResult> QueryFlights(
             [FromQuery] string from,
@@ -71,14 +71,14 @@ namespace _19070006046MidtermProject.Controllers
             });
         }
 
-        // 3️⃣ Bilet Satın Alma (korumalı)
+        // ✅ 3️⃣ Bilet Satın Alma (Artık JSON body alıyor)
         [Authorize]
         [HttpPost("buy")]
-        public async Task<IActionResult> BuyTicket([FromQuery] int flightId, [FromQuery] string passengerName)
+        public async Task<IActionResult> BuyTicket([FromBody] BuyTicketRequest request)
         {
             var flight = await _context.Flights
                 .Include(f => f.Tickets)
-                .FirstOrDefaultAsync(f => f.Id == flightId);
+                .FirstOrDefaultAsync(f => f.Id == request.FlightId);
 
             if (flight == null)
                 return NotFound(new { status = "flight not found" });
@@ -86,10 +86,10 @@ namespace _19070006046MidtermProject.Controllers
             if (flight.Capacity <= flight.Tickets.Count)
                 return BadRequest(new { status = "sold out" });
 
-            var passenger = await _context.Passengers.FirstOrDefaultAsync(p => p.Name == passengerName);
+            var passenger = await _context.Passengers.FirstOrDefaultAsync(p => p.Name == request.PassengerName);
             if (passenger == null)
             {
-                passenger = new Passenger { Name = passengerName };
+                passenger = new Passenger { Name = request.PassengerName };
                 _context.Passengers.Add(passenger);
                 await _context.SaveChangesAsync();
             }
@@ -99,7 +99,8 @@ namespace _19070006046MidtermProject.Controllers
                 FlightId = flight.Id,
                 PassengerId = passenger.Id,
                 Date = DateTime.Now,
-                IsCheckedIn = false
+                IsCheckedIn = false,
+                SeatNumber = request.SeatNumber // opsiyonel, kullanılmıyorsa kaldır
             };
 
             _context.Tickets.Add(ticket);
