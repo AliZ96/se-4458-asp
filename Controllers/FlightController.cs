@@ -40,12 +40,11 @@ namespace _19070006046MidtermProject.Controllers
             var flightsQuery = _context.Flights
                 .Include(f => f.Tickets)
                 .Where(f =>
-                    f.FromAirport == from &&
-                    f.ToAirport == to
-                     && f.DateFrom >= dateFrom
-                     && f.DateTo <= dateTo
-                     && f.Capacity > f.Tickets.Count
-                ); 
+    f.FromAirport == from &&
+    f.ToAirport == to &&
+    f.DateFrom >= dateFrom &&
+    f.DateTo <= dateTo
+);
 
             var total = await flightsQuery.CountAsync();
 
