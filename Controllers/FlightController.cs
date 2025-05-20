@@ -42,9 +42,10 @@ namespace _19070006046MidtermProject.Controllers
                 .Where(f =>
                     f.FromAirport == from &&
                     f.ToAirport == to &&
-                    f.DateFrom >= dateFrom &&
-                    f.DateTo <= dateTo &&
-                    f.Capacity > f.Tickets.Count);
+                  //  f.DateFrom >= dateFrom &&
+                   // f.DateTo <= dateTo &&
+                  //  f.Capacity > f.Tickets.Count
+                  );
 
             var total = await flightsQuery.CountAsync();
 
